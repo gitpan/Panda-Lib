@@ -1,0 +1,19 @@
+TYPEMAP
+
+string        T_STRING
+std::string   T_STRING
+panda::string T_STRING
+
+######################################################################
+INPUT
+
+T_STRING
+    STRLEN __${var}_len;
+    const char* __${var}_buf = SvPV($arg, __${var}_len);
+    $var.assign(__${var}_buf, __${var}_len);
+
+######################################################################
+OUTPUT
+
+T_STRING
+    sv_setpvn((SV*)$arg, $var.c_str(), $var.length());
